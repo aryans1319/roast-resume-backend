@@ -12,8 +12,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RoastException.class)
     public ResponseEntity<Map<String, String>> handleRoastException(RoastException ex) {
+        boolean isRateLimit = ex.getMessage().contains("5 free roasts");
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(isRateLimit ? HttpStatus.TOO_MANY_REQUESTS : HttpStatus.BAD_REQUEST)
                 .body(Map.of("error", ex.getMessage()));
     }
 
