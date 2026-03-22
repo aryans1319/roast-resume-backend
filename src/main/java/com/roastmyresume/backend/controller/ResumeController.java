@@ -32,7 +32,7 @@ public class ResumeController {
 
         if (!rateLimiterService.isAllowed(clientIp)) {
             log.warn("Rate limit exceeded for IP: {}", clientIp);
-            throw new RoastException("You've used all 5 free roasts for this hour. Come back later! 🔥");
+            throw new RoastException("You've used all 5 free roasts for this hour. Come back later! 🔥", true);
         }
 
         log.info("Remaining tokens for IP {}: {}", clientIp, rateLimiterService.getRemainingTokens(clientIp));
